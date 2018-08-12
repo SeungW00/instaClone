@@ -39,8 +39,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///instaclone'),
+    'default': env.db('DATABASE_URL', default='postgresql://postgres:1234@localhost/instaClone'),
 }
+#DATABASES['default']['PASSWORD'] = "1234"
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # URLS
@@ -71,6 +72,7 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'instaclone.users.apps.UsersAppConfig',
+    'instaclone.images.apps.ImagesConfig',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
