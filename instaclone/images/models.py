@@ -1,7 +1,9 @@
 from django.db import models
 from instaclone.users import models as user_models
+from django.utils.encoding import python_2_unicode_compatible
 # Create your models here.
 
+@python_2_unicode_compatible
 class TimeStampedModel(models.Model):
     #새로운 모델을 생성할때마다 자동으로 시간이 입력
     created_at = models.DateTimeField(auto_now_add=True)
@@ -12,6 +14,7 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
+@python_2_unicode_compatible
 class Image(TimeStampedModel):
 
     """ Image Model """
@@ -21,9 +24,10 @@ class Image(TimeStampedModel):
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return '{} - {}'.format(self.location, self.caption)
 
-
-
+@python_2_unicode_compatible
 class Comment(TimeStampedModel):
 
     """ Comment Model """
@@ -32,6 +36,10 @@ class Comment(TimeStampedModel):
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return self.message
+    
+
 
 class Like(TimeStampedModel):
 
@@ -39,3 +47,7 @@ class Like(TimeStampedModel):
 
     creator = models.ForeignKey(user_models.User,  on_delete=models.CASCADE, null=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return 'User: {} - Image Caption: {}'.format(self.creator.username, self.image.caption)
+    
