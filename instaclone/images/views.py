@@ -24,3 +24,22 @@ class Feed(APIView):
 
         return Response(serializer.data)
 
+class LikeImage(APIView):
+    def get(self, request, image_id, format=None):
+
+        user = request.user
+
+        try:
+            found_image = models.Image.objects.get(id=image_id)
+        except models.Image.DoesNotExist:
+            return Response(status=404)
+
+        new_like = models.Like.objects.create(
+            creator=user,
+            image=found_image
+        )
+      
+
+        return Response(status=200)
+
+
