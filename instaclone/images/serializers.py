@@ -16,7 +16,8 @@ class FeedUserSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
    
-    creator = FeedUserSerializer()
+   #read_only(true) creator 고정
+    creator = FeedUserSerializer(read_only=True)
     
     class Meta:
         model = models.Comment
