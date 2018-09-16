@@ -100,19 +100,36 @@ class UserFollowing(APIView):
 
 # function-based-view
 # function-based-view 를 사용할때마다 requst data object(APIview만을 위한것) 에대한 접근 권한을 잃게됨
-def UserFollowingFBV(requst,username):
+# def UserFollowingFBV(requst,username):
 
-    if requst.method == 'GET':
-        try:
-            found_user = models.User.objects.get(username=username)
-        except models.User.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+#     if requst.method == 'GET':
+#         try:
+#             found_user = models.User.objects.get(username=username)
+#         except models.User.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        user_following = found_user.following.all()
+#         user_following = found_user.following.all()
 
-        serializer = serializers.ListUserSerializer(user_following, many=True)
+#         serializer = serializers.ListUserSerializer(user_following, many=True)
 
-        return Response(data=serializer.data, status=status.HTTP_200_OK)
+#         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+class Search(APIView):
+
+    def get(self, request, format=None):
+
+        username = request.query_params.get('username',None)
+
+    
+        if username is not None:
+            
+            users = models.User.objects.filter(username__istartswith=username)
+
+            serializer = serializers.ListUserSerializer(users, many=True)
+
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
     
