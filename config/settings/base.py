@@ -68,9 +68,10 @@ THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'rest_framework',
+    'rest_framework', 
+    'taggit' #Tags for the photos
 ]
-LOCAL_APPS = [
+LOCAL_APPS = [ 
     'instaclone.users.apps.UsersAppConfig',
     'instaclone.images.apps.ImagesConfig',
     # Your stuff: custom apps go here
@@ -237,6 +238,6 @@ ACCOUNT_ADAPTER = 'instaclone.users.adapters.AccountAdapter'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = 'instaclone.users.adapters.SocialAccountAdapter'
 
-
+TAGGIT_CASE_INSENSITIVE = True
 # Your stuff...
 # ------------------------------------------------------------------------------

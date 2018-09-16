@@ -79,10 +79,30 @@ class UserFollowers(APIView):
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+
+#class-based-view
 class UserFollowing(APIView):
 
     def get(self, request, username, format=None):
 
+        try:
+            found_user = models.User.objects.get(username=username)
+        except models.User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        user_following = found_user.following.all()
+
+        serializer = serializers.ListUserSerializer(user_following, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+
+# function-based-view
+# function-based-view 를 사용할때마다 requst data object(APIview만을 위한것) 에대한 접근 권한을 잃게됨
+def UserFollowingFBV(requst,username):
+
+    if requst.method == 'GET':
         try:
             found_user = models.User.objects.get(username=username)
         except models.User.DoesNotExist:
