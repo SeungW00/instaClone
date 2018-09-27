@@ -28,7 +28,7 @@ class ImageAdmin(admin.ModelAdmin):
         'caption',
         'creator',
     ) 
-
+    
 @admin.register(models.Like)
 class LikeAdmin(admin.ModelAdmin):
      
