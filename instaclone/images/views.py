@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import models, serializers
 from rest_framework import status
+from instaclone.notifications import views as notification_views
 
 class Feed(APIView):
     def get(self, request, format=None):
@@ -24,6 +25,7 @@ class Feed(APIView):
         serializer = serializers.ImageSerializer(sorted_list, many=True)
 
         return Response(serializer.data)
+
 
 class LikeImage(APIView):
     def post(self, request, image_id, format=None):
@@ -51,7 +53,7 @@ class LikeImage(APIView):
 
             )
 
-
+            notification_views.create_notification(user, found_image.creator, 'like', found_image)
             new_like.save()
             return Response(status=status.HTTP_201_CREATED)
 
@@ -107,6 +109,8 @@ class CommentOnImage(APIView):
         if serializer.is_valid():
 
             serializer.save(creator=user, image=found_image)
+
+            notification_views.create_notification(user, found_image.creator,'comment', found_image,serializer.data['message'])
 
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
