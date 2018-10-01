@@ -19,6 +19,13 @@ class Feed(APIView):
 
             for image in user_images:
                 image_list.append(image)
+        
+        #나의 이미지 불러오기        
+        my_images = user.images.all()
+
+        for image in my_images:
+            image_list.append(image)
+        
 
         sorted_list = sorted(image_list, key=lambda image: image.created_at, reverse=True)
 
