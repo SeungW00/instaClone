@@ -77,4 +77,18 @@ class ImageSerializer(serializers.ModelSerializer):
             'created_at'
         )  
 
+class InputImageSerializer(serializers.ModelSerializer):
+
+    #file 이 필수인지 아닌지
+    #file = serializers.FileField(required=False)
+
+    class Meta:
+        model = models.Image
+        fields = (
+            'file',
+            'location',
+            'caption',
+
+        )
+
 

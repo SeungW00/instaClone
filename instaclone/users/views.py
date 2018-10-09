@@ -29,7 +29,7 @@ class FollowUser(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         user.following.add(user_to_follow)
-        user.save()
+        user.save() 
         notification_views.create_notification(user, user_to_follow,'follow')
         return Response(status=status.HTTP_200_OK)
 
