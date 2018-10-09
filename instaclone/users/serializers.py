@@ -9,10 +9,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     images = images_serializers.CountImageSerializer(many=True)
 
+    #해당필드들은 수정x
+    post_count = serializers.ReadOnlyField()
+    followers_count = serializers.ReadOnlyField()
+    following_count = serializers.ReadOnlyField()
+
     
     class Meta:
         model = models.User
         fields=(
+            'profile_image',
             'username',
             'name',
             'bio',
@@ -20,7 +26,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'post_count',
             'followers_count', 
             'following_count',
-            'images'
+            'images',
 
         )
 
