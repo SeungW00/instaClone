@@ -242,3 +242,15 @@ SOCIALACCOUNT_ADAPTER = 'instaclone.users.adapters.SocialAccountAdapter'
 TAGGIT_CASE_INSENSITIVE = True
 # Your stuff...
 # ------------------------------------------------------------------------------
+#디폴트 설정의 모든 request는 승인이 필요 api를 보호하기위해
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
