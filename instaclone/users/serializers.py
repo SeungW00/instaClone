@@ -7,7 +7,7 @@ from instaclone.images import serializers as images_serializers
 
 class UserProfileSerializer(serializers.ModelSerializer):
 
-    images = images_serializers.CountImageSerializer(many=True)
+    images = images_serializers.CountImageSerializer(many=True, read_only=True)
 
     #해당필드들은 수정x
     post_count = serializers.ReadOnlyField()
