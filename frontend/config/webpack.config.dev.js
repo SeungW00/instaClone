@@ -38,6 +38,7 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     {
       loader: require.resolve('css-loader'),
       options: cssOptions,
+     
     },
     {
       // Options for PostCSS as we reference these options twice
